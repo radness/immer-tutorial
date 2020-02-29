@@ -59,7 +59,30 @@ const App = () => {
 
   return (
     <>
-      <form onSubmit={onSubmit}></form>
+      <form onSubmit={onSubmit}>
+        <input
+          name="username"
+          placeholder="아이디"
+          value={form.username}
+          onChange={onChange}
+        />
+        <input
+          name="name"
+          placeholder="이름"
+          value={form.name}
+          onChange={onChange}
+        />
+        <button type="submit">등록</button>
+      </form>
+      <div>
+        <ul>
+          {data.array.map(info => (
+            <li key={info.id} onClick={() => onRemove(info.id)}>
+              {info.username} ({info.name})
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 };
