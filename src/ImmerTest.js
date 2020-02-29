@@ -1,4 +1,5 @@
 import produce from "immer";
+import { useCallback } from "react";
 
 const originalState = [
   {
@@ -32,3 +33,25 @@ const nextState = produce(originalState, draft => {
     1
   );
 });
+
+// useState의 함수형 업데이트
+// 예제 코드
+const [number, setNumber] = useState(0);
+// prevNumbers는 현재 number 값을 가리킵니다.
+const onIncrease = useCallback(
+  () => setNumber(prevNumber => prevNumber + 1),
+  []
+);
+
+// immer에서 제공하는 produce함수를 호출할 때, 첫번째 파라미터가 함수형태라면 업데이트 함수를 반환합니다.
+const update = draft => {
+  draft.value = 2;
+};
+
+const originalState = {
+  value: 1,
+  foo: "var"
+};
+
+const nextState = update(originalState);
+console.log(nextState); // { value: 2, foo: "bar" }
